@@ -181,9 +181,11 @@ impl ScalingRenderer {
         let render_pipeline = device.create_render_pipeline(&wgpu::RenderPipelineDescriptor {
             label: Some("pixels_scaling_renderer_pipeline"),
             layout: Some(&pipeline_layout),
+            cache: None,
             vertex: wgpu::VertexState {
                 module: &module,
-                entry_point: "vs_main",
+                compilation_options: wgpu::PipelineCompilationOptions::default(),
+                entry_point: Some("vs_main"),
                 buffers: std::slice::from_ref(&vertex_buffer_layout),
             },
             primitive: wgpu::PrimitiveState::default(),
@@ -191,7 +193,8 @@ impl ScalingRenderer {
             multisample: wgpu::MultisampleState::default(),
             fragment: Some(wgpu::FragmentState {
                 module: &module,
-                entry_point: "fs_main",
+                compilation_options: wgpu::PipelineCompilationOptions::default(),
+                entry_point: Some("fs_main"),
                 targets: &[Some(wgpu::ColorTargetState {
                     format: render_texture_format,
                     blend: Some(blend_state),
@@ -203,9 +206,11 @@ impl ScalingRenderer {
         let render_pipeline_fill = device.create_render_pipeline(&wgpu::RenderPipelineDescriptor {
             label: Some("pixels_scaling_renderer_pipeline_fill"),
             layout: Some(&pipeline_layout),
+            cache: None,
             vertex: wgpu::VertexState {
                 module: &module_fill,
-                entry_point: "vs_main",
+                compilation_options: wgpu::PipelineCompilationOptions::default(),
+                entry_point: Some("vs_main"),
                 buffers: &[vertex_buffer_layout],
             },
             primitive: wgpu::PrimitiveState::default(),
@@ -213,7 +218,8 @@ impl ScalingRenderer {
             multisample: wgpu::MultisampleState::default(),
             fragment: Some(wgpu::FragmentState {
                 module: &module_fill,
-                entry_point: "fs_main",
+                compilation_options: wgpu::PipelineCompilationOptions::default(),
+                entry_point: Some("fs_main"),
                 targets: &[Some(wgpu::ColorTargetState {
                     format: render_texture_format,
                     blend: Some(blend_state),
@@ -247,6 +253,7 @@ impl ScalingRenderer {
             label: Some("pixels_scaling_renderer_render_pass"),
             color_attachments: &[Some(wgpu::RenderPassColorAttachment {
                 view: render_target,
+                depth_slice: None,
                 resolve_target: None,
                 ops: wgpu::Operations {
                     load: wgpu::LoadOp::Clear(self.clear_color),

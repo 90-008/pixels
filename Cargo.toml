@@ -34,11 +34,10 @@ pollster = "0.3"
 
 [dev-dependencies]
 pixels-mocks = { path = "internals/pixels-mocks" }
-winit = "0.29"
+winit = "0.30"
 
 [workspace]
 members = [
-    "examples/*",
     "internals/*",
     "run-wasm",
 ]
@@ -56,5 +55,5 @@ winit_input_helper = "0.15"
 # able to build against the local working copy while developing by default.
 #
 # Temporarily change the dependency to use a path specification while testing in development.
-pixels = "0.15"
-# pixels = { path = "." }
+# pixels = "0.15"
+pixels = { path = "." }
