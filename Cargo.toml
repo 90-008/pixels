@@ -24,10 +24,10 @@ bytemuck = "1.12"
 raw-window-handle = "0.6"
 thiserror = "1.0"
 ultraviolet = "0.9"
-wgpu = "0.19"
+wgpu = { git = "https://github.com/n1ght-hunter/wgpu", branch = "dev/windows-os-transparent" }
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
-wgpu = { version = "0.19", features = ["webgl"] }
+wgpu = { git = "https://github.com/n1ght-hunter/wgpu", branch = "dev/windows-os-transparent", features = ["webgl"] }
 
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
 pollster = "0.3"
